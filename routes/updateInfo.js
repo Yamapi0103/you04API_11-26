@@ -26,7 +26,7 @@ connection.connect(function (err) {
   .put(function (req, res) {
     connection.query("UPDATE `bsmember` SET ? WHERE `BS_sid`=?",[req.body, req.params.sid], function (error) {
       if (error) throw error;
-      res.json({ message: "修改成功" });
+      res.json({ message: "修改Bsmember成功" });
     })
   })
   .get(function (req, res) {
