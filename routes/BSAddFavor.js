@@ -40,17 +40,20 @@ router.route("/BSAddFavor")
 
 router
   .route("/BSAddFavor/:id")
-  // .get(function(req, res) {
-  //   connection.query("SELECT * FROM Bs_case WHERE BScase_sid=?", req.params.id, function(error, results){
-  //       if(error) throw error;
-  //       res.json(results)
-  //   })
-  // }) 
-
-.delete(function(req, res) {//刪除收藏
+    .delete(function(req, res) {//刪除收藏
     connection.query("DELETE FROM  bs_favor WHERE BF_sid=?", req.params.id,function(error,results){
         if(error) throw error;
         res.json({message:"刪除成功！"})
+    })
+  }); 
+
+//   http://localhost:3000/api/BSGetFavor/1/2
+router
+.route("/BSGetFavor/:BSsid/:ICsid")
+    .get(function(req, res) {//取得BS_sid收藏
+    connection.query("SELECT `BF_sid` FROM `bs_favor` WHERE `BS_sid`=? AND `IC_sid`=?", [req.params.BSsid, req.params.ICsid],function(error,results){
+        if(error) throw error;
+        res.json(results)
     })
   }); 
 
