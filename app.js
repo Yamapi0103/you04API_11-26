@@ -16,7 +16,10 @@ var BSmembersInfoRouter = require('./routes/bsmembers_info');
 var checkMemberRouter = require('./routes/checkmember');
 var updateRouter = require('./routes/updateInfo');
 var BSAddFavorRouter = require('./routes/BSAddFavor');
-
+var IC_hireRouter = require('./routes/IC_hire');
+var BSCaseRouter = require('./routes/bsMyCase_Open');
+var BSCaseShowHireRouter = require('./routes/bsMyCase_Open_showHire');
+var BSAddFavorRouter = require('./routes/BSAddFavor');
 var app = express();
 
 // view engine setup
@@ -54,6 +57,12 @@ app.use('/you04',checkMemberRouter);
 
 //更新bsmember資訊(bs_point)
 app.use('/you04',updateRouter);
+//網紅應徵
+app.use('/hire',IC_hireRouter);
+
+//廠商發佈的案子列表
+app.use('/case',BSCaseRouter);
+app.use('/case',BSCaseShowHireRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
