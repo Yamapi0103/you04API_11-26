@@ -15,6 +15,8 @@ var ICmembersInfoRouter = require('./routes/icmembers_info');
 var BSmembersInfoRouter = require('./routes/bsmembers_info');
 var checkMemberRouter = require('./routes/checkmember');
 var updateRouter = require('./routes/updateInfo');
+var BSAddFavorRouter = require('./routes/BSAddFavor');
+
 var app = express();
 
 // view engine setup
@@ -33,7 +35,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api', publishRouter);
 app.use('/case_list', listCaseCardRouter)
-
+//收藏網紅//
+app.use('/api', BSAddFavorRouter);
 //http://localhost:3000/api
 app.use('/api', ICmembersRegisterRouter);
 //http://localhost:3000/api

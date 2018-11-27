@@ -11,6 +11,24 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
+//拿到所有icmembers
+router.route("/icmembers")
+.get(function(req, res) {
+  connection.query(
+    "SELECT * FROM `icmember`",
+    function(error, results) {
+      if (error) throw error;
+      if(results.length ==0){
+        res.json({Message:'查無此帳號'});  //回傳{}
+      }
+      else{
+        res.json(results); //回傳[{}]
+      }
+    }
+  );
+})
+
+
 // http://localhost:3000/api2/icmembers
 router.route("/icmembers/:sid")
 .get(function(req, res) {
