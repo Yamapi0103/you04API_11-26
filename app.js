@@ -20,6 +20,7 @@ var IC_hireRouter = require('./routes/IC_hire');
 var BSCaseRouter = require('./routes/bsMyCase_Open');
 var BSCaseShowHireRouter = require('./routes/bsMyCase_Open_showHire');
 var BSAddFavorRouter = require('./routes/BSAddFavor');
+var checkoutRouter = require('./routes/checkout');
 var app = express();
 
 // view engine setup
@@ -64,6 +65,8 @@ app.use('/hire',IC_hireRouter);
 app.use('/case',BSCaseRouter);
 app.use('/case',BSCaseShowHireRouter);
 
+//購買方案
+app.use('/plan_buy', checkoutRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -4,10 +4,10 @@ var mysql = require("mysql");
 const multer = require('multer');
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'you04',
+    host: "localhost",
+    database: "U04",
+    user: "root",
+    password: "",
 });
 // connection.connect();
 connection.connect(function (err) {

@@ -5,9 +5,9 @@ var mysql = require("mysql");
 //建立連線
 var connection = mysql.createConnection({
     host: "localhost",
-    database: "you04",
+    database: "U04",
     user: "root",
-    password: ""
+    password: "",
   });
 connection.connect();
 
