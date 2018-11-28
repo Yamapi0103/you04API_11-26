@@ -21,6 +21,8 @@ var BSCaseRouter = require('./routes/bsMyCase_Open');
 var BSCaseShowHireRouter = require('./routes/bsMyCase_Open_showHire');
 var BSAddFavorRouter = require('./routes/BSAddFavor');
 var checkoutRouter = require('./routes/checkout');
+var filterRouter = require('./routes/filter_api');
+var uploadRouter = require('./routes/uploadfile')
 var app = express();
 
 // view engine setup
@@ -41,6 +43,12 @@ app.use('/api', publishRouter);
 app.use('/case_list', listCaseCardRouter)
 //收藏網紅//
 app.use('/api', BSAddFavorRouter);
+
+//篩選器
+app.use('/api', filterRouter);
+app.use('/case_list', listCaseCardRouter);
+//upload
+app.use('/imgupload', uploadRouter, express.static("public/uploads"))
 //http://localhost:3000/api
 app.use('/api', ICmembersRegisterRouter);
 //http://localhost:3000/api
