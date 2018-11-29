@@ -57,8 +57,19 @@ router
 //   http://localhost:3000/api/BSGetFavor/1/2
 router
   .route("/BSGetFavor/:BSsid/:ICsid")
-  .get(function (req, res) {//取得BS_sid收藏
+  .get(function (req, res) {//用BS_sid和IC_sid取得BF_sid 
     connection.query("SELECT `BF_sid` FROM `bs_favor` WHERE `BS_sid`=? AND `IC_sid`=?", [req.params.BSsid, req.params.ICsid], function (error, results) {
+      if (error) throw error;
+      res.json(results)
+    })
+  });
+
+
+  //   http://localhost:3000/api/BSFavorIC/1
+  router
+  .route("/BSFavorIC/:BSsid")
+  .get(function (req, res) {//用BS_sid 拿到所有收藏的ic members 
+    connection.query("SELECT ic.* FROM `icmember` ic JOIN bs_favor bf ON bf.BS_sid=? AND ic.IC_sid = bf.IC_sid ORDER BY ic.IC_sid", [req.params.BSsid], function (error, results) {
       if (error) throw error;
       res.json(results)
     })
