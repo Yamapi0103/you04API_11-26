@@ -9,16 +9,15 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var publishRouter = require('./routes/publish')
 var listCaseCardRouter = require('./routes/ListCaseCard')
-var ICmembersRegisterRouter = require('./routes/icmembers_register');
-var BSmembersRegisterRouter = require('./routes/bsmembers_register');
-var ICmembersInfoRouter = require('./routes/icmembers_info');
-var BSmembersInfoRouter = require('./routes/bsmembers_info');
+
 var checkMemberRouter = require('./routes/checkmember');
 var updateRouter = require('./routes/updateInfo');
 var BSAddFavorRouter = require('./routes/BSAddFavor');
 var IC_hireRouter = require('./routes/IC_hire');
-var BSCaseRouter = require('./routes/bsMyCase_Open');
-var BSCaseShowHireRouter = require('./routes/bsMyCase_Open_showHire');
+var registerRouter = require('./routes/members_register');
+var membersInfoRouter = require('./routes/members_info');
+var caseRouter = require('./routes/case');
+var BSBillingRouter = require('./routes/bsmember_billing_card');
 var BSAddFavorRouter = require('./routes/BSAddFavor');
 var checkoutRouter = require('./routes/checkout');
 var filterRouter = require('./routes/filter_api');
@@ -49,29 +48,25 @@ app.use('/api', filterRouter);
 app.use('/case_list', listCaseCardRouter);
 //upload
 app.use('/imgupload', uploadRouter, express.static("public/uploads"))
-//http://localhost:3000/api
-app.use('/api', ICmembersRegisterRouter);
-//http://localhost:3000/api
-app.use('/api', BSmembersRegisterRouter);
 
-//註冊網紅個資
-//http://localhost:3000/api2
-app.use('/api2', ICmembersInfoRouter);
-//註冊廠商個資
-//http://localhost:3000/api3
-app.use('/api3', BSmembersInfoRouter);
 
 //網紅+廠商登入
 app.use('/you04',checkMemberRouter);
 
 //更新bsmember資訊(bs_point)
 app.use('/you04',updateRouter);
+//網紅+廠商註冊
+app.use('/register', registerRouter);
+//填寫網紅個資+廠商個資
+app.use('/info', membersInfoRouter);
 //網紅應徵
 app.use('/hire',IC_hireRouter);
 
-//廠商發佈的案子列表
-app.use('/case',BSCaseRouter);
-app.use('/case',BSCaseShowHireRouter);
+//網紅+廠商的接案管理頁
+app.use('/case',caseRouter);
+
+// 廠商購買過的方案列表(訂單管理)
+app.use('/bsbilling_api', BSBillingRouter);
 
 //購買方案
 app.use('/plan_buy', checkoutRouter);
