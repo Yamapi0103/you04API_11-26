@@ -60,7 +60,12 @@ router
                 })
             }
             else{
-                alert('請至少選擇一個項目')
+                connection.query("SELECT * FROM BS_case", function(error,results){
+                    if(error) throw error;
+                    res.json(results);
+                    
+                })
+                // alert('請至少選擇一個項目')
             }
 
     })

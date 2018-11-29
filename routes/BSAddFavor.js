@@ -50,7 +50,7 @@ router
   .delete(function (req, res) {//刪除收藏
     connection.query("DELETE FROM  bs_favor WHERE BF_sid=?", req.params.id, function (error, results) {
       if (error) throw error;
-      res.json({ message: "刪除成功！" })
+      res.json({ message: "移除成功！" })
     })
   });
 
