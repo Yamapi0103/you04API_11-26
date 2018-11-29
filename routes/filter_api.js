@@ -108,4 +108,37 @@ router
         })
     })
 
+
+
+
+    router
+    .route('/search/:ins/:bas/:keyword')
+    .get(function(req,res){
+        var ins = req.params.ins,
+            bas = req.params.bas,
+            keyword = "%" + req.params.keyword + "%"
+
+            if((ins!=1) && (bas !=1) && (keyword != null)){             
+                connection.query("SELECT * FROM BS_case WHERE industry_name = ? AND BScase_active= ? AND BScase_name LIKE ? ORDER BY BScase_sid DESC",[ins, bas,  keyword], function(error,results){
+                    if(error) throw error;
+                    res.json(results);
+                    console.log(ins,bas)
+                })
+            }
+            else if(ins !=1 || bas !=1 || keyword != 1){
+                connection.query("SELECT * FROM BS_case WHERE industry_name = ? OR BScase_active=? OR BScase_name LIKE ? ORDER BY BScase_sid DESC",[ins, bas, keyword], function(error,results){
+                    if(error) throw error;
+                    res.json(results);
+                    console.log("b")
+                })
+            }
+            else{
+                alert('請至少選擇一個項目')
+            }
+
+    })
+
+
+
+
 module.exports = router;
