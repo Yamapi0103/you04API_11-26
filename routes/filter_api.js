@@ -46,12 +46,14 @@ router
             bas = req.params.bas,
             keyword =req.params.keyword
 
+            //都有選
             if((ins!=1) && (bas !=1) && (keyword != 1)){             
                 connection.query("SELECT * FROM BS_case WHERE industry_name = ? AND BScase_active= ? AND BScase_name LIKE ? ORDER BY BScase_sid DESC",[ins, bas,  "%" + keyword+ "%"], function(error,results){
                     if(error) throw error;
                     res.json(results);
                 })
             }
+            ///選兩個
             else if((ins !=1) && (bas !=1) && (keyword == 1)){
                 connection.query("SELECT * FROM BS_case WHERE industry_name = ?  AND BScase_active=? ORDER BY BScase_sid DESC",[ins, bas, "%" + keyword + "%"], function(error,results){
                     if(error) throw error;
@@ -73,12 +75,14 @@ router
                     console.log("f")
                 })
             }
+            //選一個
             else if(ins !=1 || bas !=1 || keyword != 1){
                 connection.query("SELECT * FROM BS_case WHERE industry_name = ? OR BScase_active=? OR BScase_name LIKE ? ORDER BY BScase_sid DESC",[ins, bas, "%" + keyword + "%"], function(error,results){
                     if(error) throw error;
                     res.json(results);
                     console.log("c")
                 })
+            //都沒選 => 篩選全部
             }else if(ins ==1 && bas ==1 && keyword == 1){
                 connection.query("SELECT * FROM BS_case WHERE 1",[ins, bas, "%" + keyword + "%"], function(error,results){
                     if(error) throw error;
