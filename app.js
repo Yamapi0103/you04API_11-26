@@ -21,7 +21,8 @@ var BSBillingRouter = require('./routes/bsmember_billing_card');
 var BSAddFavorRouter = require('./routes/BSAddFavor');
 var checkoutRouter = require('./routes/checkout');
 var filterRouter = require('./routes/filter_api');
-var uploadRouter = require('./routes/uploadfile')
+var uploadRouter = require('./routes/uploadfile');
+var chatRouter = require('./routes/chat');
 var app = express();
 
 // view engine setup
@@ -64,6 +65,9 @@ app.use('/hire',IC_hireRouter);
 
 //網紅+廠商的接案管理頁
 app.use('/case',caseRouter);
+
+//廠商+網紅對話紀錄
+app.use('/chat',chatRouter);
 
 // 廠商購買過的方案列表(訂單管理)
 app.use('/bsbilling_api', BSBillingRouter);
