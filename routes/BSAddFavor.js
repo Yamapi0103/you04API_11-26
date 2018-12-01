@@ -62,6 +62,12 @@ router
       if (error) throw error;
       res.json(results)
     })
+  })
+  .delete(function (req, res) {//用BS_sid和IC_sid 刪除該筆收藏 
+    connection.query("DELETE FROM  bs_favor WHERE BS_sid=? AND IC_sid=? ", [req.params.BSsid,req.params.ICsid], function (error) {
+      if (error) throw error;
+      res.json({ message: "移除成功！" })
+    })
   });
 
 
