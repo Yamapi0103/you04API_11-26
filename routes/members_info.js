@@ -99,6 +99,41 @@ router.route("/bsmembers/:sid")
 
 
 
+//查詢各類網紅
+//eg: http://localhost:3000/info/icmedia/youtube
+router.route("/icmedia/:media")
+  .get(function(req, res) {
+    let ic_media = req.params.media;
+    if(ic_media=="all"){
+      connection.query(
+        "SELECT * FROM `icmember`",function(error, results) {
+          if (error) throw error;
+          if(results.length ==0){
+            res.json({Message:'找不到任何網紅'});  //回傳{}
+          }
+          else{}
+            res.json(results); //回傳[{}]
+          }
+      );
+    }  
+  else{
+    connection.query(
+    "SELECT * FROM `icmember` WHERE IC_media=?",ic_media,function(error, results) {
+      if (error) throw error;
+      if(results.length ==0){
+        res.json({Message:'查不到該類網紅'});  //回傳{}
+      }
+      else{}
+        res.json(results); //回傳[{}]
+      }
+  );
+}
+});
+
+
+
+
+
 /* GET users listing. */
 router.get("/", function(req, res, next) {
   res.send("respond with a resource");
