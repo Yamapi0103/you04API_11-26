@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api', publishRouter);
+app.use('/api', publishRouter, express.static("public/uploads"));
 app.use('/case_list', listCaseCardRouter)
 //收藏網紅//
 app.use('/api', BSAddFavorRouter);
@@ -49,7 +49,7 @@ app.use('/api', BSAddFavorRouter);
 app.use('/api', filterRouter);
 app.use('/case_list', listCaseCardRouter);
 //upload
-app.use('/imgupload', uploadRouter, express.static("public/uploads"))
+// app.use('/imgupload', uploadRouter, express.static("public/uploads"))
 
 
 //網紅+廠商登入

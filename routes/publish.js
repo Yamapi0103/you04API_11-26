@@ -20,6 +20,62 @@ connection.connect(function(err) {
   console.log("connected as id " + connection.threadId);
 });
 
+
+// var storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//       cb(null, 'public/uploads/bs_case_photo')
+//   },
+//   filename: function (req, file, cb) {
+//       var changedName = (new Date().getTime())+'-'+file.originalname;
+//       cb(null, changedName)
+//       console.log(cb)
+//   }
+// })
+
+// var upload = multer({ storage: storage })
+
+// router
+// .post('/upload/', upload.single('image'), function (req, res) {
+//     res.send(req.file);
+// })
+
+var uploadFolder = '/build/uploads';
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadFolder);    
+    },
+    filename: function (req, file, cb) {
+      var changedName = (new Date().getTime())+'-'+file.originalname;
+      cb(null, changedName)
+      console.log(cb)
+    }
+});
+var upload = multer({ storage: storage })
+
+  
+var storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, 'public/uploads/')
+  },
+  filename: function (req, file, cb) {
+
+      var changedName = file.originalname;
+      cb(null, changedName)
+      console.log(cb)
+  }
+})
+
+var upload = multer({ storage: storage })
+
+//上傳圖片
+router
+.post('/upload', upload.single('image'), function (req, res, next) {
+  res.send(req.file);
+  console.log(req.file.fielname)
+})
+
+
 //localhost/3000/api/publish
 router.route("/publish")
   .get(function(req, res) {//讀所有資料
@@ -34,7 +90,15 @@ router.route("/publish")
         res.json({message:"新增成功"});
     })
   }); 
-  
+//拿到最後一筆資料
+router.route("/publishlastOne")
+  .get(function(req, res) {//讀所有資料
+    connection.query("SELECT * FROM `bs_case` ORDER BY BScase_sid DESC LIMIT 1",function(error, results){
+        if(error) throw error;
+        res.json(results);
+    })
+  })
+
 //localhost/3000/api/publish/:id
 router
   .route("/publish/:id")
