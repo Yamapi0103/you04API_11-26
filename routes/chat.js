@@ -104,19 +104,19 @@ router.route("/icMyCase_showCase/:sid")
     }
   );
 })
-//抓取網紅姓名
-//http://localhost:3000/chat/bsMyCase_showIC/1
-router.route("/bsMyCase_showIC/:sid")
-.get(function(req, res) {
-  connection.query(
-    "SELECT IC_name FROM `icmember` o  JOIN `bs_case_detail` d ON o.IC_sid=d.ICmember_sid  JOIN `bs_case` p ON p.BScase_sid=d.BScase_sid  WHERE p.BS_sid=?",
-    req.params.sid,
-    function(error, results) {
-      if (error) throw error;
-      res.json(results);  //回傳 [{ICname:xxxx},{ICname:xxxx}]
-    }
-  );
-})
+// //抓取網紅姓名
+// //http://localhost:3000/chat/bsMyCase_showIC/1
+// router.route("/bsMyCase_showIC/:sid")
+// .get(function(req, res) {
+//   connection.query(
+//     "SELECT IC_name FROM `icmember` o  JOIN `bs_case_detail` d ON o.IC_sid=d.ICmember_sid  JOIN `bs_case` p ON p.BScase_sid=d.BScase_sid  WHERE p.BS_sid=?",
+//     req.params.sid,
+//     function(error, results) {
+//       if (error) throw error;
+//       res.json(results);  //回傳 [{ICname:xxxx},{ICname:xxxx}]
+//     }
+//   );
+// })
 
 //顯示對話-步驟1: 取得bs_case_detail的流水號sid
 // http://localhost:3000/chat/icMyCase_catch/1
