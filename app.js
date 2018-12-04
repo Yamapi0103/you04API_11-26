@@ -14,6 +14,7 @@ var checkMemberRouter = require('./routes/checkmember');
 var updateRouter = require('./routes/updateInfo');
 var BSAddFavorRouter = require('./routes/BSAddFavor');
 var IC_hireRouter = require('./routes/IC_hire');
+var ICAddFavor = require('./routes/ICAddFavor');
 var registerRouter = require('./routes/members_register');
 var membersInfoRouter = require('./routes/members_info');
 var caseRouter = require('./routes/case');
@@ -61,7 +62,9 @@ app.use('/register', registerRouter);
 //填寫網紅個資+廠商個資
 app.use('/info', membersInfoRouter);
 //網紅應徵
-app.use('/hire',IC_hireRouter);
+app.use('/hire', IC_hireRouter);
+//網紅收藏
+app.use('/api', ICAddFavor);
 
 //網紅+廠商的接案管理頁
 app.use('/case',caseRouter);
