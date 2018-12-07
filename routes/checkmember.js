@@ -85,4 +85,18 @@ router
     })
   })
 
+
+  // http://localhost:3000/you04/BSmemberInfo/1
+  router
+  .route("/BSmemberInfo/:sid")
+  .get(function (req, res) {
+    connection.query("SELECT * FROM `bsmember` WHERE `BS_sid`=?", 
+    req.params.sid, 
+    function (error, rows) {
+      if (error) throw error;
+      res.json(rows);
+
+    })
+  })
+
 module.exports = router;

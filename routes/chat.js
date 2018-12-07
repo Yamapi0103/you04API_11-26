@@ -38,19 +38,19 @@ router.route("/bsMyCase_showIC/:sid")
   );
 })
 
-//顯示對話-步驟1: 取得bs_case_detail的流水號sid
-// http://localhost:3000/chat/bsMyCase_catch/1
-router.route("/bsMyCase_catch/:sid")
-.get(function(req, res) {
-  connection.query(
-    "SELECT sid FROM `bs_case_detail` WHERE BScase_sid =?",   //利用案子的sid去抓bs_case_detail的流水號sid
-    req.params.sid,
-    function(error, results) {
-      if (error) throw error;
-      res.json(results);   //回傳 [{sid:15}]
-    }
-  );
-})
+// //顯示對話-步驟1: 取得bs_case_detail的流水號sid
+// // http://localhost:3000/chat/bsMyCase_catch/1
+// router.route("/bsMyCase_catch/:sid")
+// .get(function(req, res) {
+//   connection.query(
+//     "SELECT sid FROM `bs_case_detail` WHERE BScase_sid =?",   //利用案子的sid去抓bs_case_detail的流水號sid
+//     req.params.sid,
+//     function(error, results) {
+//       if (error) throw error;
+//       res.json(results);   //回傳 [{sid:15}]
+//     }
+//   );
+// })
 //顯示對話-步驟2: 利用流水號sid分別抓bs_talk、ic_talk的談話資訊
 // http://localhost:3000/chat/bsMyCase_showBSChat/1
 router.route("/bsMyCase_showBSChat/:sid")
@@ -104,33 +104,33 @@ router.route("/icMyCase_showCase/:sid")
     }
   );
 })
-// //抓取網紅姓名
-// //http://localhost:3000/chat/bsMyCase_showIC/1
-// router.route("/bsMyCase_showIC/:sid")
-// .get(function(req, res) {
-//   connection.query(
-//     "SELECT IC_name FROM `icmember` o  JOIN `bs_case_detail` d ON o.IC_sid=d.ICmember_sid  JOIN `bs_case` p ON p.BScase_sid=d.BScase_sid  WHERE p.BS_sid=?",
-//     req.params.sid,
-//     function(error, results) {
-//       if (error) throw error;
-//       res.json(results);  //回傳 [{ICname:xxxx},{ICname:xxxx}]
-//     }
-//   );
-// })
-
-//顯示對話-步驟1: 取得bs_case_detail的流水號sid
-// http://localhost:3000/chat/icMyCase_catch/1
-router.route("/icMyCase_catch/:sid")
+//抓取廠商姓名
+//http://localhost:3000/chat/icMyCase_showIC/1
+router.route("/icMyCase_showIC/:sid")
 .get(function(req, res) {
   connection.query(
-    "SELECT sid FROM `bs_case_detail` WHERE BScase_sid =?",   //利用案子的sid去抓bs_case_detail的流水號sid
+    "SELECT BS_name FROM `bsmember` o  JOIN `bs_case` p ON o.BS_sid=p.BS_sid JOIN `bs_case_detail` d ON  p.BScase_sid = d.BScase_sid WHERE d.Icmember_sid=?",
     req.params.sid,
     function(error, results) {
       if (error) throw error;
-      res.json(results);   //回傳 [{sid:15}]
+      res.json(results);  //回傳 [{BSname:xxxx},{BSname:xxxx}]
     }
   );
 })
+
+// //顯示對話-步驟1: 取得bs_case_detail的流水號sid
+// // http://localhost:3000/chat/icMyCase_catch/1
+// router.route("/icMyCase_catch/:sid")
+// .get(function(req, res) {
+//   connection.query(
+//     "SELECT sid FROM `bs_case_detail` WHERE BScase_sid =?",   //利用案子的sid去抓bs_case_detail的流水號sid
+//     req.params.sid,
+//     function(error, results) {
+//       if (error) throw error;
+//       res.json(results);   //回傳 [{sid:15}]
+//     }
+//   );
+// })
 //顯示對話-步驟2: 利用流水號sid分別抓bs_talk、ic_talk的談話資訊
 // http://localhost:3000/chat/icMyCase_showBSChat/1
 router.route("/icMyCase_showBSChat/:sid")
