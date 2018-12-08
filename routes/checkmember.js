@@ -85,12 +85,25 @@ router
     })
   })
 
-
+  //抓廠商的名字
   // http://localhost:3000/you04/BSmemberInfo/1
   router
   .route("/BSmemberInfo/:sid")
   .get(function (req, res) {
     connection.query("SELECT * FROM `bsmember` WHERE `BS_sid`=?", 
+    req.params.sid, 
+    function (error, rows) {
+      if (error) throw error;
+      res.json(rows);
+
+    })
+  })
+  //抓網紅的名字
+  // http://localhost:3000/you04/ICmemberInfo/1
+  router
+  .route("/ICmemberInfo/:sid")
+  .get(function (req, res) {
+    connection.query("SELECT * FROM `icmember` WHERE `IC_sid`=?", 
     req.params.sid, 
     function (error, rows) {
       if (error) throw error;
