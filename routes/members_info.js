@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var mysql = require("mysql");
+var multer  = require('multer');
+var upload = multer({ dest: 'public/images/uploads/member_photo' });
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -56,6 +58,64 @@ router.route("/icmembers/:sid")
     }
   );
 });
+
+//---------------------upload photo-------------------------//
+
+var uploadFolder = 'public/uploads/member_photo';
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadFolder);    
+    },
+    filename: function (req, file, cb) {
+      var changedName = (new Date().getTime())+'-IC'+file.originalname;
+      cb(null, changedName)
+      
+    }
+});
+var upload = multer({ storage: storage })
+
+//upload file and also update new name to DB
+router
+.route("/icmembers_upload_Photo/:sid")
+.put(upload.single('photo'), function(req, res) {
+  connection.query(
+    "UPDATE `icmember` SET IC_photo=? WHERE `IC_sid`=?",[req.file.filename,req.params.sid],function(error, results) {
+      if (error) throw error;
+      res.json({message:'照片上傳成功'}); 
+    }
+  );
+});
+
+//---------------------end of upload photo-------------------------//
+
+//---------------------upload bs photo-------------------------//
+var uploadFolder = 'public/uploads/member_photo';
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, uploadFolder);    
+    },
+    filename: function (req, file, cb) {
+      var changedName = (new Date().getTime())+'-BS'+file.originalname;
+      cb(null, changedName)
+      //console.log(cb)
+    }
+});
+var upload = multer({ storage: storage })
+
+//upload file and also update new name to DB
+router
+.route("/bsmembers_upload_Photo/:sid")
+.put(upload.single('photo'), function(req, res) {
+  connection.query(
+    "UPDATE `bsmember` SET BS_photo=? WHERE `BS_sid`=?",[req.file.filename,req.params.sid],function(error, results) {
+      if (error) throw error;
+      res.json({message:'照片上傳成功'}); 
+    }
+  );
+});
+//---------------------end of upload photo-------------------------//
 
 
 //廠商個資

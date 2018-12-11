@@ -60,7 +60,7 @@ app.use('/you04',updateRouter);
 //網紅+廠商註冊
 app.use('/register', registerRouter);
 //填寫網紅個資+廠商個資
-app.use('/info', membersInfoRouter);
+app.use('/info', membersInfoRouter,  express.static("public/uploads/member_photo"));
 //網紅應徵
 app.use('/hire', IC_hireRouter);
 //網紅收藏
