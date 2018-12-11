@@ -15,7 +15,8 @@ connection.connect();
 router.route("/icMyCase_Open/:sid")
 .get(function(req, res) {
   connection.query(
-   "SELECT * FROM `bs_case_detail` o JOIN `bs_case` d ON o.BScase_sid=d.BScase_sid WHERE o.ICmember_sid=? AND BS_state=1",
+  //  "SELECT * FROM `bs_case_detail` o JOIN `bs_case` d ON o.BScase_sid=d.BScase_sid WHERE o.ICmember_sid=? AND BS_state=1",
+  "SELECT * FROM `bs_case_detail` o JOIN `bs_case` d ON o.BScase_sid=d.BScase_sid JOIN `bsmember` s ON s.BS_sid=d.BS_sid WHERE o.ICmember_sid=? AND BS_state=1",
     req.params.sid,
     function(error, results) {
       if (error) throw error;
@@ -31,7 +32,7 @@ router
   
   .get(function(req, res) {
     connection.query(
-      "SELECT * FROM `bs_case_detail` o JOIN `bs_case` d ON o.BScase_sid=d.BScase_sid WHERE o.ICmember_sid=? AND BS_state=0",
+      "SELECT * FROM `bs_case_detail` o JOIN `bs_case` d ON o.BScase_sid=d.BScase_sid JOIN `bsmember` s ON s.BS_sid=d.BS_sid WHERE o.ICmember_sid=? AND BS_state=0",
       req.params.sid,
       function(error, results) {
         if (error) throw error;

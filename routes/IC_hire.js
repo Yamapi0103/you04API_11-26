@@ -30,6 +30,26 @@ router
               [req.body.BScase_sid,req.body.ICmember_sid],
               function(error) {
                 if (error) throw error;
+
+                //抓應徵人數
+                connection.query(
+                  "SELECT count(*) AS C FROM `bs_case_detail` WHERE BScase_sid=?",
+                  req.body.BScase_sid,
+                  function(error, NUM) {
+                    if (error) throw error;
+                    
+                      //把應徵人數+1
+                      var addhire = NUM[0]['C'];
+                      connection.query(
+                        "UPDATE `bs_case` SET  `hire_num`=? WHERE `BScase_sid`=?",
+                        [addhire,req.body.BScase_sid],
+                        function(error) {
+                          if (error) throw error;
+                         
+                        }
+                      );
+                  }
+                );
                 res.json({ message: "應徵成功" });
               }
             );
@@ -37,6 +57,7 @@ router
         }
       );
   });
+  
 
 
 
