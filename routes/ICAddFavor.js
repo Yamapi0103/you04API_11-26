@@ -51,7 +51,7 @@ router.get("/", function (req, res, next) {
 
 router.route("/ICAddFavor/:sid")
   .get(function (req, res) {
-    //顯示廠商po的案子列表
+  //顯示該IC收藏的廠商案子
     connection.query(
       "SELECT * FROM `ic_favor`o JOIN `bs_case` p ON o.BScase_sid =p.BScase_sid  WHERE o.ICmember_sid=? AND p.BS_state=1", //IC_sid為廠商的id
       req.params.sid,
