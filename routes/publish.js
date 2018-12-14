@@ -1,19 +1,28 @@
 var express = require('express');
 var router = express.Router();
+<<<<<<< HEAD
 var {connection} =require('./connect_db')
+=======
+
+>>>>>>> caa459985938863cc5e107d5c033b3812e76c3ff
 var multer  = require('multer');
 var upload = multer({ dest: 'public/images/uploads/' });
+var {connection} =require('./connect_db');
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> caa459985938863cc5e107d5c033b3812e76c3ff
 
-// connection.connect();
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) {
     console.error("error connecting: " + err.stack);
     return;
   }
   console.log("connected as id " + connection.threadId);
 });
+
+
 
 
 // var storage = multer.diskStorage({

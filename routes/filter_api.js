@@ -1,10 +1,23 @@
 var express = require('express');
 var router = express.Router();
+<<<<<<< HEAD
 var {connection} =require('./connect_db')
 
 
 
 // connection.connect();
+=======
+var {connection} =require('./connect_db');
+
+
+connection.connect(function (err) {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
+});
+>>>>>>> caa459985938863cc5e107d5c033b3812e76c3ff
 connection.connect(function(err) {
   if (err) {
     console.error("error connecting: " + err.stack);

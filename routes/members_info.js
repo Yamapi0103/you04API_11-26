@@ -1,10 +1,20 @@
 var express = require("express");
 var router = express.Router();
+<<<<<<< HEAD
 var {connection} =require('./connect_db')
+=======
+
+>>>>>>> caa459985938863cc5e107d5c033b3812e76c3ff
 var multer  = require('multer');
 var upload = multer({ dest: 'public/images/uploads/member_photo' });
+var {connection} =require('./connect_db');
 
+<<<<<<< HEAD
 connection.connect(function(err) {
+=======
+
+connection.connect(function (err) {
+>>>>>>> caa459985938863cc5e107d5c033b3812e76c3ff
   if (err) {
     console.error("error connecting: " + err.stack);
     return;
