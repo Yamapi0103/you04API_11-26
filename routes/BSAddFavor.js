@@ -1,10 +1,6 @@
 var express = require('express');
 var router = express.Router();
-<<<<<<< HEAD
 var {connection} =require('./connect_db')
-=======
-var {connection} =require('./connect_db');
->>>>>>> caa459985938863cc5e107d5c033b3812e76c3ff
 
 
 connection.connect(function (err) {

@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-<<<<<<< HEAD
 var {connection} =require('./connect_db')
 
 connection.connect(function(err) {
@@ -10,10 +9,6 @@ connection.connect(function(err) {
     }
     console.log("connected as id " + connection.threadId);
   });
-=======
-var {connection} =require('./connect_db');
-
->>>>>>> caa459985938863cc5e107d5c033b3812e76c3ff
 
 connection.connect(function (err) {
   if (err) {

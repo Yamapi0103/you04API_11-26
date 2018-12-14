@@ -1,16 +1,9 @@
 var express = require("express");
 var router = express.Router();
-<<<<<<< HEAD
 var {connection} =require('./connect_db')
 
 
 connection.connect(function(err) {
-=======
-var {connection} =require('./connect_db');
-
-
-connection.connect(function (err) {
->>>>>>> caa459985938863cc5e107d5c033b3812e76c3ff
   if (err) {
     console.error("error connecting: " + err.stack);
     return;
