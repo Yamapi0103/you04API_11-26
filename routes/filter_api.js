@@ -8,8 +8,8 @@ var connection = mysql.createConnection({
     host: "localhost",
     database: "U04",
     user: "root",
-    password: "root",
-    port:8889
+    password: "",
+    // port:8889
   });
 
 // connection.connect();
