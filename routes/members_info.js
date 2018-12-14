@@ -1,19 +1,18 @@
 var express = require("express");
 var router = express.Router();
-var mysql = require("mysql");
+
 var multer  = require('multer');
 var upload = multer({ dest: 'public/images/uploads/member_photo' });
+var {connection} =require('./connect_db');
 
-var connection = mysql.createConnection({
-  host: "localhost",
-  database: "U04",
-  user: "root",
-  password: "",
-  
+
+connection.connect(function (err) {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
 });
-
-connection.connect();
-
 
 router.route("/icmembers")
 .get(function(req, res) {

@@ -1,15 +1,8 @@
 var express = require("express");
 var router = express.Router();
-var mysql = require("mysql");
+var {connection} =require('./connect_db');
 
-//建立連線
-var connection = mysql.createConnection({
-  host: "localhost",
-  database: "U04",
-  user: "root",
-  password: "",
-});
-// connection.connect();
+
 connection.connect(function (err) {
   if (err) {
     console.error("error connecting: " + err.stack);

@@ -1,15 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require("mysql");
-const multer = require('multer');
 
-var connection = mysql.createConnection({
-    host: "localhost",
-    database: "U04",
-    user: "root",
-    password: "",
-});
-// connection.connect();
+const multer = require('multer');
+var {connection} =require('./connect_db');
+
+
 connection.connect(function (err) {
     if (err) {
         console.error("error connecting: " + err.stack);
