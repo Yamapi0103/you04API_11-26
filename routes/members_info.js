@@ -33,6 +33,27 @@ router.route("/icmembers")
   );
 })
 
+
+
+//廠商個資
+// http://localhost:3000/info/bsmemberinfo/1
+router.route("/bsmemberinfo/:sid")
+.get(function(req, res) {
+  connection.query(
+    "SELECT * FROM `bsmember` WHERE BS_sid=?",
+    req.params.sid,
+    function(error, results) {
+      if (error) throw error;
+      if(results.length ==0){
+        res.json({Message:'查無此帳號'});  //回傳{}
+      }
+      else{
+        res.json(results); //回傳[{}]
+      }
+    }
+  );
+})
+
 //網紅個資
 // http://localhost:3000/info/icmembers/1
 router.route("/icmembers/:sid")
