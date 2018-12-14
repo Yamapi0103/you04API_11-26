@@ -1,15 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require("mysql");
+var {connection} =require('./connect_db')
 var multer  = require('multer');
 var upload = multer({ dest: 'public/images/uploads/' });
 
-var connection = mysql.createConnection({
-  host: "localhost",
-  database: "U04",
-  user: "root",
-  password: "",
-});
+
 
 // connection.connect();
 connection.connect(function(err) {

@@ -1,16 +1,16 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require("mysql");
+var {connection} =require('./connect_db')
 
-var connection = mysql.createConnection({
-    host: "localhost",
-    database: "U04",
-    user: "root",
-    password: "",
-    
+
+
+connection.connect(function(err) {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
 });
-
-connection.connect();
 
 //網紅註冊
 // http://localhost:3000/register/icmembers

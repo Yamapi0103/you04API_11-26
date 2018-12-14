@@ -1,14 +1,15 @@
 var express = require("express");
 var router = express.Router();
-var mysql = require("mysql");
+var {connection} =require('./connect_db')
 
-var connection = mysql.createConnection({
-  host: "localhost",
-  database: "U04",
-  user: "root",
-  password: ""
+
+connection.connect(function(err) {
+  if (err) {
+    console.error("error connecting: " + err.stack);
+    return;
+  }
+  console.log("connected as id " + connection.threadId);
 });
-connection.connect();
 
 // --------------------------------------廠商頁
 //顯示廠商發佈中且有人應徵的案子
