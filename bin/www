@@ -23,39 +23,77 @@ var server = http.createServer(app);
 
 // 创建socket服务
 var socketIO = IO(server);
-
+var roomInfo={};
 socketIO.on("connection", socket => {
   var user = "";
   var id = "";
   console.log("New client connected");
 
   socket.on("join", (newID, userType) => {
-    id = newID;
-    user = userType;
+    //newID當作房間的編號
+    // 將用戶加入房间名单中
+    if (!roomInfo[newID]) {
+      roomInfo[newID] = [];
+    }
+    roomInfo[newID].push(userType);
+
+
     socket.join(newID); // 加入房间
-    console.log(user + "加入了" + newID);
-  });
-  socket.on("leave", function(oldID, userType) {
-    socket.leave(oldID);
-    console.log(userType + "退出房間: " + oldID);
+    console.log(userType + "加入了" + newID);
+    socketIO.sockets.in(newID).emit('sys',roomInfo[newID]);
+    console.log(roomInfo[newID]);
   });
 
-  // disconnect is fired when a client leaves the server
-  socket.on("disconnect", () => {
-    console.log("斷線");
+  socket.on("leave", function(oldID, userType) {
+    // 从房间名单中移除
+    // console.log(roomInfo)
+    var index = roomInfo[oldID].indexOf(userType);
+    if (index !== -1) {
+      roomInfo[oldID].splice(index, 1);
+    }
+
+    //離開房間
+    socket.leave(oldID);
+    console.log(userType + "退出房間: " + oldID);
+    socketIO.sockets.in(oldID).emit('sys',roomInfo[oldID]);
+    console.log(roomInfo[oldID]);
   });
+
 
   // 接收用户消息,发送相应的房间
   socket.on("ADD", (text, userType, Time, roomID) => {
     socketIO.sockets.in(roomID).emit("ADDClient", text, userType, Time, roomID);
-    // socketIO.emit("ADDClient", text, userType, Time, roomID);
-    // socketIO.to(roomID).emit('ADD', text, userType,Time,roomID);
+
+    // var roomINFO = roomInfo[roomID];
+    // socketIO.sockets.in(roomID).emit('joinINFO',roomINFO);  //當加入房間後,回傳有誰在房間內名單[IC、BS] 
+    // console.log(roomINFO);
+    socketIO.sockets.in(roomID).emit('sys',roomInfo[roomID]);
     console.log("ROOM:", roomID, userType, "發送: ", text, Time);
-    console.log("後端產生對話!");
+    // console.log("後端產生對話!");
   });
 
+  // socket.on("joinINFO",(roomID)=>{
+  //   var roomINFO = roomInfo[roomID];
+  //   socketIO.sockets.in(roomID).emit('joinINFO',roomINFO);  //當加入房間後,回傳有誰在房間內名單[IC、BS] 
+  //   console.log(roomINFO);
+  // })
+ 
+
   socket.on("forceDisconnect", function(oldID, userType) {
+    // 从房间名单中移除
+    var index = roomInfo[oldID].indexOf(userType);
+    if (index !== -1) {
+      roomInfo[oldID].splice(index, 1);
+    }
+    socketIO.sockets.in(oldID).emit('sys',roomInfo[oldID]);
+    console.log(userType+'斷線,房間成員剩下: '+roomInfo[oldID]);
+
     socket.disconnect();
+  });
+  
+  // disconnect is fired when a client leaves the server
+  socket.on("disconnect", () => {
+    console.log("斷線");
   });
 });
 /**

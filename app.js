@@ -24,6 +24,7 @@ var checkoutRouter = require('./routes/checkout');
 var filterRouter = require('./routes/filter_api');
 var uploadRouter = require('./routes/uploadfile');
 var chatRouter = require('./routes/chat');
+var sseRouter = require('./routes/navbarAPI');
 var app = express();
 
 // view engine setup
@@ -77,6 +78,10 @@ app.use('/bsbilling_api', BSBillingRouter);
 
 //購買方案
 app.use('/plan_buy', checkoutRouter);
+
+//訊息通知
+app.use('/sse', sseRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

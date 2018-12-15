@@ -1,23 +1,15 @@
 var express = require("express");
 var router = express.Router();
-var {connection} =require('./connect_db')
+var mysql = require("mysql");
 
-
-connection.connect(function(err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("connected as id " + connection.threadId);
+var connection = mysql.createConnection({
+  host: "localhost",
+  database: "U04",
+  user: "root",
+  password: ""
 });
+connection.connect();
 
-connection.connect(function (err) {
-  if (err) {
-    console.error("error connecting: " + err.stack);
-    return;
-  }
-  console.log("connected as id " + connection.threadId);
-});
 // --------------------------------------廠商頁
 //顯示廠商發佈中且有人應徵的案子
 // http://localhost:3000/chat/bsMyCase_showCase/1
@@ -67,6 +59,8 @@ router.route("/bsMyCase_showICChat/:sid")
     req.params.sid,
     function(error, results) {
       if (error) throw error;
+      //當廠商點擊對話後 => 已讀網紅的訊息
+      connection.query("UPDATE `ic_talk` SET `ic_talk_state`=1  WHERE `talk_sid`=?",req.params.sid,function(error){if(error){throw error}});
       res.json(results);   
     }
   );
@@ -76,8 +70,8 @@ router.route("/bsMyCase_showICChat/:sid")
 router.route("/bsMyCase_sent")
 .post(function(req, res) {
   connection.query(
-    "INSERT INTO `bs_talk`(`talk_sid`, `BS_content`, `time`) VALUE (?,?,?)",
-    [req.body[0],req.body[1],req.body[2]],
+    "INSERT INTO `bs_talk`(`talk_sid`, `BS_content`, `time`,`bs_talk_state`) VALUE (?,?,?,?)",
+    [req.body[0],req.body[1],req.body[2],req.body[3]],
     function(error, results) {
       if (error) throw error;
       res.json({message:'已上傳'});   
@@ -123,6 +117,7 @@ router.route("/icMyCase_showBSChat/:sid")
     req.params.sid,
     function(error, results) {
       if (error) throw error;
+      connection.query("UPDATE `bs_talk` SET `bs_talk_state`=1  WHERE `talk_sid`=?",req.params.sid,function(error){if(error){throw error}});
       res.json(results);   
     }
   );
@@ -144,8 +139,8 @@ router.route("/icMyCase_showICChat/:sid")
 router.route("/icMyCase_sent")
 .post(function(req, res) {
   connection.query(
-    "INSERT INTO `ic_talk`(`talk_sid`, `IC_content`, `time`) VALUE (?,?,?)",
-    [req.body[0],req.body[1],req.body[2]],
+    "INSERT INTO `ic_talk`(`talk_sid`, `IC_content`, `time`,`ic_talk_state`) VALUE (?,?,?,?)",
+    [req.body[0],req.body[1],req.body[2],req.body[3]],
     function(error, results) {
       if (error) throw error;
       res.json({message:'已上傳'});   
