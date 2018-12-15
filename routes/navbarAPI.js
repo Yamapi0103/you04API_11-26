@@ -37,7 +37,7 @@ router.route("/ICnavbar/:sid").get(function(req, res) {
 
 
 //廠商抓取所有發布中案子的所有應徵網紅,共有幾個未讀訊息
-// http://localhost:3000/sse/BSnavbar
+// http://localhost:3000/sse/BSnavbar/1
 router.route("/BSnavbar/:sid").get(function(req, res) {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3001');
     res.header('Access-Control-Allow-Credentials', true);
