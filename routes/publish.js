@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var {connection} =require('./connect_db')
 var multer  = require('multer');
-var upload = multer({ dest: 'public/images/uploads/member_photo' });
+var upload = multer({ dest: 'public/images/uploads/' });
 var {connection} =require('./connect_db');
 
 
@@ -35,7 +35,7 @@ connection.connect(function (err) {
 //     res.send(req.file);
 // })
 
-var uploadFolder = '/build/uploads/member_photo';
+var uploadFolder = '/build/uploads';
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -52,7 +52,7 @@ var upload = multer({ storage: storage })
   
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-      cb(null, 'public/uploads/member_photo')
+      cb(null, 'public/uploads/')
   },
   filename: function (req, file, cb) {
 
