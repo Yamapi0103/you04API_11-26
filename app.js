@@ -25,6 +25,7 @@ var filterRouter = require('./routes/filter_api');
 var uploadRouter = require('./routes/uploadfile');
 var chatRouter = require('./routes/chat');
 var sseRouter = require('./routes/navbarAPI');
+var contact_usRouter = require('./routes/contact_us');
 var app = express();
 
 // view engine setup
@@ -81,6 +82,9 @@ app.use('/plan_buy', checkoutRouter);
 
 //訊息通知
 app.use('/sse', sseRouter);
+
+
+app.use('/api', contact_usRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
