@@ -42,7 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/api', publishRouter, express.static("public/uploads"));
+app.use('/api', publishRouter, express.static("public/uploads/member_photo"));
 app.use('/case_list', listCaseCardRouter)
 //收藏網紅//
 app.use('/api', BSAddFavorRouter);

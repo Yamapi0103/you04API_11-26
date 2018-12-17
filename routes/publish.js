@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var {connection} =require('./connect_db')
 var multer  = require('multer');
-var upload = multer({ dest: 'public/images/uploads/' });
+var upload = multer({ dest: 'public/images/uploads/member_photo' });
 var {connection} =require('./connect_db');
 
 
@@ -52,7 +52,7 @@ var upload = multer({ storage: storage })
   
 var storage = multer.diskStorage({
   destination: function (req, file, cb) {
-      cb(null, 'public/uploads/')
+      cb(null, 'public/uploads/member_photo')
   },
   filename: function (req, file, cb) {
 
