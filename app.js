@@ -25,6 +25,7 @@ var filterRouter = require('./routes/filter_api');
 var uploadRouter = require('./routes/uploadfile');
 var chatRouter = require('./routes/chat');
 var sseRouter = require('./routes/navbarAPI');
+var contact_usRouter = require('./routes/contact_us');
 var app = express();
 
 // view engine setup
@@ -54,24 +55,24 @@ app.use('/case_list', listCaseCardRouter);
 
 
 //網紅+廠商登入
-app.use('/you04',checkMemberRouter);
+app.use('/you04', checkMemberRouter);
 
 //更新bsmember資訊(bs_point)
-app.use('/you04',updateRouter);
+app.use('/you04', updateRouter);
 //網紅+廠商註冊
 app.use('/register', registerRouter);
 //填寫網紅個資+廠商個資
-app.use('/info', membersInfoRouter,  express.static("public/uploads/member_photo"));
+app.use('/info', membersInfoRouter, express.static("public/uploads/member_photo"));
 //網紅應徵
 app.use('/hire', IC_hireRouter);
 //網紅收藏
 app.use('/api', ICAddFavor);
 
 //網紅+廠商的接案管理頁
-app.use('/case',caseRouter);
+app.use('/case', caseRouter);
 
 //廠商+網紅對話紀錄
-app.use('/chat',chatRouter);
+app.use('/chat', chatRouter);
 
 // 廠商購買過的方案列表(訂單管理)
 app.use('/bsbilling_api', BSBillingRouter);
@@ -82,13 +83,17 @@ app.use('/plan_buy', checkoutRouter);
 //訊息通知
 app.use('/sse', sseRouter);
 
+//問題回報
+app.use('/api', contact_usRouter);
+
+
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

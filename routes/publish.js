@@ -35,7 +35,7 @@ connection.connect(function (err) {
 //     res.send(req.file);
 // })
 
-var uploadFolder = '/build/uploads';
+var uploadFolder = '/build/uploads/member_photo';
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
